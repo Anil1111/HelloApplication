@@ -1,0 +1,26 @@
+﻿@using HelloApplication.Models
+@model  List<Message>
+
+@{
+    ViewBag.Title = "Гостевая книга";
+}
+
+<div id="dialog-confirm" title="Удалить сообщение?" style="display:none">
+    <p><span class="ui-icon ui-icon-alert"></span>Вы действительно хотите удалить это сообщение?</p>
+</div>
+
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("Post", new Message())
+
+<div id="messages">
+    @foreach (var message in Model)
+    {
+        <hr />
+        <div>@message.Post</div>
+        @Html.ActionLink("Удалить", "Delete", "GuestBook", new { id = message.Id }, new { onclick = "message.deleteMessage(this, event)" })
+    }
+</div>
+
+@{ Html.RenderAction("Paging", "Paging", 
+       new { currentPage = ViewBag.CurrentPage, count = ViewBag.Count, controllerName = ViewBag.ControllerName });}

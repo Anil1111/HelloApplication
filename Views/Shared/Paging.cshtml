@@ -1,0 +1,26 @@
+﻿@model HelloApplication.Models.Paging
+
+@if (Model.Pages.Count > 1)
+{
+    <ul class="pagination">
+        @if (Model.CurrentPage != 1)
+        {
+            <li class="page-item">
+                <!--<a class="page-link" href="@(Url.Action("Index", Model.ControllerName, new {page = Model.CurrentPage - 1}))">Предыдущая</a>-->
+                @Html.ActionLink("Предыдущая", "Index", Model.ControllerName, new { page = Model.CurrentPage - 1 }, new { @class = "page-link" })
+            </li>
+        }
+        @foreach (var page in Model.Pages)
+        {
+            <li class="page-item @(page == Model.CurrentPage ? "active" : "")" }>
+                @Html.ActionLink(page.ToString(), "Index", Model.ControllerName, new { page }, new { @class = "page-link" })
+            </li>
+        }
+        @if ((Model.CurrentPage + 1) <= Model.LastPage)
+        {
+            <li class="page-item">
+                @Html.ActionLink("Следующая", "Index", Model.ControllerName, new { page = Model.CurrentPage + 1 }, new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+}
