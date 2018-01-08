@@ -1,5 +1,12 @@
 ﻿var message = (function () {
     return {
+        submit: function (id, e) {
+            $(id).submit();
+            e.preventDefault();
+        },
+        error: function () {
+            $("#dialog-error").dialog("open");
+        },
         deleteMessage: function (node, e) {
             var link = $(node).attr("href");
             $("#dialog-confirm").dialog("option",
@@ -20,7 +27,7 @@
 })();
 
 $(function () {
-    $("#dialog-confirm").dialog({
+    $("#dialog-confirm, #dialog-error").dialog({
         resizable: false,
         height: "auto",
         width: 400,

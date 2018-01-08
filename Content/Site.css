@@ -31,3 +31,7 @@ textarea {
 #messages {
     margin-top: 10px;
 }
+
+textarea.mytext {
+    max-width: none;
+}

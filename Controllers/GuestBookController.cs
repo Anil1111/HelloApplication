@@ -69,5 +69,55 @@ namespace HelloApplication.Controllers
                 return RedirectToAction("Index");
             } 
         }
+
+        public PartialViewResult Edit(int id, bool editView = true)
+        {
+            using (var dbContext = new MessageContext())
+            {
+                var messageEntity = dbContext.Messages.Find(id);
+                if (messageEntity == null)
+                {
+                    throw new Exception($"Сообщения с id {id} не существует");
+                }
+
+                var message = new Message
+                {
+                    Id = messageEntity.Id,
+                    Post = messageEntity.Post,
+                };
+
+                return PartialView(editView ? "Edit" : "Message", message);
+            }
+        }
+        
+        [HttpPost]
+        public PartialViewResult Edit(Message message)
+        {
+            using (var dbContext = new MessageContext())
+            {
+                var messageEntity = dbContext.Messages.Find(message.Id);
+
+                if (messageEntity == null)
+                {
+                    throw new Exception($"Сообщения с id {message.Id} не существует");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return PartialView(message);
+                }
+
+                messageEntity.Post = message.Post;
+                dbContext.SaveChanges();
+                
+                var newMessage = new Message
+                {
+                    Id = messageEntity.Id,
+                    Post = messageEntity.Post,
+                };
+
+                return PartialView("Message", newMessage);
+            }
+        }
     } 
 }

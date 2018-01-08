@@ -9,6 +9,10 @@
     <p><span class="ui-icon ui-icon-alert"></span>Вы действительно хотите удалить это сообщение?</p>
 </div>
 
+<div id="dialog-error" title="Ошибка" style="display:none">
+    <p><span class="ui-icon ui-icon-alert"></span>Произошла ошибка. Возможно сообщение уже не существует</p>
+</div>
+
 <h2>@ViewBag.Title</h2>
 
 @Html.Partial("Post", new Message())
@@ -17,8 +21,9 @@
     @foreach (var message in Model)
     {
         <hr />
-        <div>@message.Post</div>
-        @Html.ActionLink("Удалить", "Delete", "GuestBook", new { id = message.Id }, new { onclick = "message.deleteMessage(this, event)" })
+        <div id="message_@message.Id">
+            @Html.Action("Edit", new { id = message.Id, editView = false })
+        </div>
     }
 </div>
 

@@ -30,6 +30,7 @@ namespace HelloApplication
             bundles.Add(new ScriptBundle("~/bundles/guestbook")
                 .Include("~/Scripts/jquery-ui-{version}.js")
                 .Include("~/Scripts/message.js")
+                .Include("~/Scripts/jquery.unobtrusive-ajax.min.js")
             );
 
             bundles.Add(new StyleBundle("~/Content/guestbook")

@@ -1,0 +1,11 @@
+﻿@model HelloApplication.Models.Message
+
+<div>@Model.Post</div>
+@Ajax.ActionLink("Редактировать", "Edit", new { id = Model.Id }, new AjaxOptions
+       {
+           UpdateTargetId = $"message_{Model.Id}",
+           InsertionMode = InsertionMode.Replace,
+           OnSuccess = $"$.validator.unobtrusive.parse('#form_{Model.Id}')",
+           OnFailure = "message.error()"
+       })
+@Html.ActionLink("Удалить", "Delete", "GuestBook", new { id = Model.Id }, new { onclick = "message.deleteMessage(this, event)" })
