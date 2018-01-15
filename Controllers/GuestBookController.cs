@@ -10,8 +10,10 @@ using System.Text;
 
 namespace HelloApplication.Controllers
 {
+    [Authorize]
     public class GuestBookController : Controller
     {
+        [AllowAnonymous]
         public ActionResult Index(int page = 1)
         {
             using (var dbContext = new MessageContext())
@@ -70,6 +72,7 @@ namespace HelloApplication.Controllers
             } 
         }
 
+        [AllowAnonymous]
         public PartialViewResult Edit(int id, bool editView = true)
         {
             using (var dbContext = new MessageContext())

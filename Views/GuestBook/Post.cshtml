@@ -1,11 +1,17 @@
 ﻿@model HelloApplication.Models.Message
 
-@using(Html.BeginForm("Post", "GuestBook", FormMethod.Post))
+@if (User.Identity.IsAuthenticated)
 {
-    <div class="form-group">
-        @Html.LabelFor(m => m.Post)
-        @Html.ValidationMessageFor(m => m.Post)
-        @Html.EditorFor(m => m.Post, new { htmlAttributes = new {@class="form-control", rows=5}})
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    using (Html.BeginForm("Post", "GuestBook", FormMethod.Post))
+    {
+        <div class="form-group">
+            @Html.LabelFor(m => m.Post)
+            @Html.ValidationMessageFor(m => m.Post)
+            @Html.EditorFor(m => m.Post, new { htmlAttributes = new { @class = "form-control", rows = 5 } })
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    }
+}
+else {
+    @Html.ActionLink("Войдите, чтобы комментировать", "Login", "Account", new { ReturnUrl = Url.Action("Index", "GuestBook")}, null)
 }
