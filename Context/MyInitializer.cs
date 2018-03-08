@@ -16,7 +16,7 @@ namespace HelloApplication.Context
             base.Seed(context);
 
             var store = new UserStore<ApplicationUser>(context);
-            var user = new ApplicationUser { UserName = "admin@admin.com" };
+            var user = new ApplicationUser { UserName = Constants.UserAdmin };
             var userManager = new ApplicationUserManager(store);
             userManager.Create(user, "Test1234");
         }

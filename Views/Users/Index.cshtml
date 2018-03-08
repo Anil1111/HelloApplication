@@ -1,0 +1,32 @@
+﻿@model IEnumerable<HelloApplication.Models.User>
+
+@{
+    ViewBag.Title = "Пользователи";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Пользователь</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{ 
+    Html.RenderAction("Paging", "Paging", new
+    {
+        currentPage = ViewBag.CurrentPage,
+        count = ViewBag.Count,
+        controllerName = ViewBag.ControllerName,
+    });
+}
