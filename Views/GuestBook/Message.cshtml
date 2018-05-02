@@ -11,5 +11,5 @@
         OnFailure = "message.error()"
     })
     @Html.Raw("\n")
-    @Html.ActionLink("Удалить", "Delete", "GuestBook", new { id = Model.Id }, new { onclick = "message.deleteMessage(this, event)" })
+    @Html.ActionLink("Удалить", "Delete", "GuestBook", new { id = Model.Id }, new { onclick = "message.delete(this, event)" })
 }

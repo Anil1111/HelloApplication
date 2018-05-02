@@ -6,6 +6,10 @@
 
 <h2>@ViewBag.Title</h2>
 
+<div id="dialog-confirm" title="Удалить пользователя?" style="display:none">
+    <p><span class="ui-icon ui-icon-alert"></span>Вы действительно хотите удалить пользователя?</p>
+</div>
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -17,6 +21,17 @@
         {
             <tr>
                 <td>@item.UserName</td>
+                <td>
+                    @using (Html.BeginForm("Delete", "Users", new { item.Id }, FormMethod.Post,
+                        new
+                        {
+                            onsubmit = "message.delete(this, event)"
+                        }))
+                    {
+                        <input type="submit" class="btn btn-default" value="Удалить" />
+                        @Html.AntiForgeryToken()
+                    }
+                </td>
             </tr>
         }
     </tbody>

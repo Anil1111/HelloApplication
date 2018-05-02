@@ -7,13 +7,18 @@
         error: function () {
             $("#dialog-error").dialog("open");
         },
-        deleteMessage: function (node, e) {
-            var link = $(node).attr("href");
+        delete: function (node, e) {
             $("#dialog-confirm").dialog("option",
                 "buttons",
                 {
                     "Да": function () {
-                        location.href = link;
+                        if (node.tagName === 'A') {
+                            var link = $(node).attr("href");
+                            location.href = link;
+                        }
+                        else if (node.tagName === 'FORM') {
+                            node.submit();
+                        }
                     },
                     "Отмена": function () {
                         $("#dialog-confirm").dialog("close");
